@@ -1,0 +1,166 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bogo Offer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 350px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            text-align: center;
+            font-weight: bold;
+            color: #ff4081;
+            margin-bottom: 20px;
+        }
+        .offer-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .offer-box.expanded {
+            border: 2px solid #ff4081;
+        }
+        .most-popular {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4081;
+            color: white;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+        .discount {
+            background: #ff4081;
+            color: white;
+            font-size: 12px;
+            padding: 3px 5px;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
+        .price {
+            font-weight: bold;
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: gray;
+            font-size: 12px;
+        }
+        .free-delivery {
+            color: #ff4081;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .add-to-cart {
+            background: #ff4081;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        select {
+            margin: 5px;
+            padding: 5px;
+        }
+        .details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+        }
+        .expanded .details {
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Bundle & Save</div>
+        
+        <div class="offer-box" onclick="expandBox(event, this, 19)">
+            <input type="radio" name="unit" /> 1 Unit <span class="discount">5% Off</span>
+            <div class="price">$19.00 USD</div>
+            <div class="old-price">$20.00 USD</div>
+            <div class="details">
+                #1 Size: <select onclick="event.stopPropagation()"><option>S</option><option>M</option><option>L</option></select>
+                Colour: <select onclick="event.stopPropagation()"><option>Black</option><option>White</option></select> <br>
+                #2 Size: <select onclick="event.stopPropagation()"><option>S</option><option>M</option><option>L</option></select>
+                Colour: <select onclick="event.stopPropagation()"><option>Black</option><option>White</option></select>
+            </div>
+        </div>
+        
+        <div class="offer-box" onclick="expandBox(event, this, 35)">
+            <div class="most-popular">MOST POPULAR</div>
+            <input type="radio" name="unit" checked /> 2 Unit <span class="discount">15% Off</span>
+            <div class="price">$35.00 USD</div>
+            <div class="old-price">$40.00 USD</div>
+            <div class="details">
+                #1 Size: <select onclick="event.stopPropagation()"><option>S</option><option>M</option><option>L</option></select>
+                Colour: <select onclick="event.stopPropagation()"><option>Black</option><option>White</option></select> <br>
+                #2 Size: <select onclick="event.stopPropagation()"><option>S</option><option>M</option><option>L</option></select>
+                Colour: <select onclick="event.stopPropagation()"><option>Black</option><option>White</option></select>
+            </div>
+        </div>
+        
+        <div class="offer-box" onclick="expandBox(event, this, 50)">
+            <input type="radio" name="unit" /> 3 Unit <span class="discount">20% Off</span>
+            <div class="price">$50.00 USD</div>
+            <div class="old-price">$60.00 USD</div>
+            <div class="details">
+                #1 Size: <select onclick="event.stopPropagation()"><option>S</option><option>M</option><option>L</option></select>
+                Colour: <select onclick="event.stopPropagation()"><option>Black</option><option>White</option></select> <br>
+                #2 Size: <select onclick="event.stopPropagation()"><option>S</option><option>M</option><option>L</option></select>
+                Colour: <select onclick="event.stopPropagation()"><option>Black</option><option>White</option></select>
+            </div>
+        </div>
+        
+        <div class="free-delivery">Free Delivery</div>
+        <div class="total">Total: <span id="total-price">$35.00 USD</span></div>
+        <div class="add-to-cart">+ Add to Cart</div>
+    </div>
+    
+    <script>
+        function expandBox(event, selectedBox, price) {
+            // Prevent collapse when interacting with selects
+            if (event.target.tagName.toLowerCase() === 'select') {
+                event.stopPropagation();
+                return;
+            }
+            
+            document.querySelectorAll('.offer-box').forEach(box => {
+                if (box !== selectedBox) {
+                    box.classList.remove('expanded');
+                }
+            });
+            selectedBox.classList.toggle('expanded');
+            document.getElementById('total-price').innerText = `$${price}.00 USD`;
+        }
+    </script>
+</body>
+</html>
